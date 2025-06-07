@@ -1,5 +1,14 @@
-
 services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
   web:
     build: .
     ports:
@@ -8,5 +17,10 @@ services:
       - .:/app
     environment:
       - RAILS_ENV=development
+    depends_on:
+      - db
     stdin_open: true
     tty: true
+
+volumes:
+  pgdata:
