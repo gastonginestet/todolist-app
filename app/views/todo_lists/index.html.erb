@@ -1,9 +1,14 @@
-<%= link_to 'Add Todo List', new_todo_list_path %>
+<p style="color: green"><%= notice %></p>
 
-<div>
-  <% @todo_lists.each do |todo_list| %>
-    <div>
-      #<%= todo_list.id %> | <%= todo_list.name %>
-    </div>
+<h1>Todolist List</h1>
+
+<div id="todolists">
+  <% @todolists.each do |todolist| %>
+    <%= render todolist %>
+    <p>
+      <%= link_to "Show this Todolist list", todolist %>
+    </p>
   <% end %>
 </div>
+
+<%= link_to "New todolist", new_todo_list_path %>
