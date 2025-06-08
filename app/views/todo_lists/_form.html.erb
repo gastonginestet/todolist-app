@@ -1,17 +1,22 @@
-<%= form_with(model: todolist) do |form| %>
-  <% if todolist.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(todolist.errors.count, "error") %> prohibited this todolist from being saved:</h2>
-
-      <ul>
-        <% todolist.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+<%= form_with model: @todolist, data: { turbo_frame: "todo_list_form" }, class: "space-y-4" do |f| %>
+  <% if @todolist.errors.any? %>
+    <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+      <h2 class="font-semibold"><%= pluralize(@todolist.errors.count, "error") %> prohibited this list from being saved:</h2>
+      <ul class="list-disc list-inside mt-2">
+        <% @todolist.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.submit %>
+  <div class="mb-4">
+    <%= f.label :name, class: "block text-gray-700 font-semibold mb-2" %>
+    <%= f.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300" %>
+  </div>
+
+  <div class="flex items-center justify-between">
+    <%= f.submit @todolist.persisted? ? "Update" : "Create", class: "bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600" %>
+    <%= link_to 'Back', todo_lists_path, class: "text-sm text-teal-600 hover:underline" %>
   </div>
 <% end %>

@@ -1,10 +1,22 @@
-<p style="color: green"><%= notice %></p>
+<div class="h-full w-full flex items-center justify-center bg-teal-50 font-sans min-h-screen">
+  <div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
+    <!-- Back button -->
+    <div class="mb-4">
+      <%= link_to "← Back", todo_lists_path, class: "text-sm text-teal-600 hover:text-teal-800" %>
+    </div>
 
-<%= render @todolist %>
+    <div class="mb-4">
+      <h1 class="text-gray-900 text-xl font-semibold"><%= @todolist.name %></h1>
+    </div>
 
-<div>
-  <%= link_to "Edit this todolist", edit_todo_list_path(@todolist) %> |
-  <%= link_to "Back to todolists", todo_lists_path %>
+    <%= turbo_frame_tag "todo_items" do %>
+      <% @todolist.todo_items.each do |item| %>
+        <%= render partial: "todo_items/item", locals: { todo_item: item, todo_list: @todolist } %>
+      <% end %>
+    <% end %>
 
-  <%= button_to "Destroy this todolist", @todolist, method: :delete %>
+    <%= turbo_frame_tag "todo_item_form" do %>
+      <%= render partial: "todo_items/form", locals: { todo_list: @todolist, todo_item: TodoItem.new } %>
+    <% end %>
+  </div>
 </div>

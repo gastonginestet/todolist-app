@@ -1,0 +1,2 @@
+<%= turbo_stream.remove dom_id(@todolist) %>
+<%= turbo_stream.append "flash", partial: "shared/flash", locals: { notice: "TodoList was successfully destroyed." } %>
