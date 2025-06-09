@@ -2,7 +2,7 @@
 FROM ruby:3.2
 
 # Install dependencies
-RUN apt-get update -qq && apt-get install -y nodejs build-essential libpq-dev
+RUN apt-get update -qq && apt-get install -y nodejs yarn build-essential libpq-dev watchman
 
 # Set working directory
 WORKDIR /app
@@ -19,6 +19,10 @@ RUN bundle install
 # Copy the rest of the application code
 COPY . .
 
+RUN chmod +x bin/dev
+
+RUN gem install foreman
+
 # Precompile assets (if any)
 # RUN bundle exec rake assets:precompile
 
@@ -26,4 +30,4 @@ COPY . .
 EXPOSE 3000
 
 # Start the Rails server
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["./bin/dev"]

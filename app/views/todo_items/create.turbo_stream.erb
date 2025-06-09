@@ -1,0 +1,2 @@
+<%= turbo_stream.append "todo_items", partial: "todo_items/item", locals: { todo_item: @todo_item, todo_list: @todo_list } %>
+<%= turbo_stream.replace "todo_item_form", partial: "todo_items/form", locals: { todo_list: @todo_list, todo_item: TodoItem.new } %>

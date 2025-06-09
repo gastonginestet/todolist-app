@@ -1,14 +1,30 @@
-<p style="color: green"><%= notice %></p>
+<div class="min-h-screen bg-teal-50 font-sans p-8">
+  <div id="flash">
+    <% if notice %>
+      <p class="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">
+        <%= notice %>
+      </p>
+    <% end %>
+  </div>
 
-<h1>Todolist List</h1>
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-3xl font-bold text-gray-900">Todo Lists</h1>
+    <%= link_to "➕ New Todo List", new_todo_list_path, class: "bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-4 rounded" %>
+  </div>
 
-<div id="todolists">
-  <% @todolists.each do |todolist| %>
-    <%= render todolist %>
-    <p>
-      <%= link_to "Show this Todolist list", todolist %>
-    </p>
-  <% end %>
+  <div id="todolists" class="space-y-4">
+    <% @todolists.each do |todolist| %>
+      <div id="<%= dom_id(todolist) %>" class="bg-white rounded shadow p-4 flex justify-between items-center">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-800">
+            <%= link_to todolist.name, todo_list_path(todolist), class: "hover:underline hover:text-teal-600" %>
+          </h2>
+        </div>
+        <div>
+          <%= link_to "Edit", edit_todo_list_path(todolist), class: "text-sm bg-yellow-400 hover:bg-yellow-500 text-white py-2 px-3 rounded mr-2" %>
+          <%= button_to "Delete", todo_list_path(todolist), method: :delete, data: { turbo_confirm: "Are you sure?" }, form: { class: "inline" }, class: "text-sm bg-red-500 hover:bg-red-600 text-white py-2 px-3 rounded" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
-
-<%= link_to "New todolist", new_todo_list_path %>
