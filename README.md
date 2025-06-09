@@ -1,35 +1,109 @@
-# rails-interview / TodoApi
 
-[![Open in Coder](https://dev.crunchloop.io/open-in-coder.svg)](https://dev.crunchloop.io/templates/fly-containers/workspace?param.Git%20Repository=git@github.com:crunchloop/rails-interview.git)
+# rails-interview / TodoApp
 
-This is a simple Todo List API built in Ruby on Rails 7. This project is currently being used for Ruby full-stack candidates.
+This is a Todo List app built with **Ruby on Rails 7**, **TailwindCSS**, and **Hotwire (Turbo + Stimulus)**. It includes a simple UI and a responsive UX with real-time interactions.
 
-## Build
+---
 
-To build the application:
+## 🚀 Features
 
-`bin/setup`
+- Full CRUD (ABM) for Todo Lists and Todo Items
+- TailwindCSS for modern and responsive styling
+- Hotwire (Turbo Streams & Frames) for real-time UI updates
+- Batch actions: complete all and clear completed items
+- Pagination with Kaminari
+- Docker-ready development environment
+- Tests included
 
-## Run the API
+---
 
-To run the TodoApi in your local environment:
+## 🛠 Setup
 
-`bin/puma`
+Clone the repository and run:
 
-## Test
+```bash
+bin/setup
+```
 
-To run tests:
+This will install dependencies, set up the database, and prepare the app for development.
 
-`bin/rspec`
+---
 
-Check integration tests at: (https://github.com/crunchloop/interview-tests)
+## 🐳 Using Docker
 
-## Contact
+To run the app in Docker (recommended):
 
-- Santiago Doldán (sdoldan@crunchloop.io)
+```bash
+docker-compose up
+```
 
-## About Crunchloop
+This will launch the Rails server and Tailwind watcher automatically via `Procfile.dev`.
+
+To rebuild after making changes to dependencies:
+
+```bash
+docker-compose build
+```
+
+---
+
+## 💻 Running the App
+
+Once set up, you can access the app at:
+
+```
+http://localhost:3000
+```
+
+In development, use:
+
+```bash
+bin/dev
+```
+
+Or, with Docker:
+
+```bash
+docker-compose up
+```
+
+This starts both Rails and the TailwindCSS watcher.
+
+---
+
+## ✅ Running Tests
+
+To run the test suite:
+
+```bash
+bin/rspec
+```
+
+Integration test specs are located in a separate repo:  
+👉 [https://github.com/crunchloop/interview-tests](https://github.com/crunchloop/interview-tests)
+
+---
+
+## 📚 Documentation
+
+- The root path displays the Todo Lists UI.
+- You can add, edit, and delete Todo Lists and Todo Items.
+- Use the batch actions on a list's show page to complete or clear multiple items.
+- Turbo Streams provide real-time updates to the UI.
+- TailwindCSS is used for styling and responsive design.
+
+---
+
+## 📩 Contact
+
+- Santiago Doldán (<sdoldan@crunchloop.io>)
+- Gastón Ginestet (<gastonauginestet@gmail.com>)  
+
+---
+
+## 🌀 About Crunchloop
 
 ![crunchloop](https://s3.amazonaws.com/crunchloop.io/logo-blue.png)
 
-We strongly believe in giving back :rocket:. Let's work together [`Get in touch`](https://crunchloop.io/#contact).
+We strongly believe in giving back 🚀  
+Let's work together → [Get in touch](https://crunchloop.io/#contact)
