@@ -1,5 +1,5 @@
 class TodoListsController < ApplicationController
-  before_action :set_todo_list, only: %i[ show edit update destroy ]
+  before_action :set_todo_list, only: %i[edit update destroy complete_all clear_completed]
 
   # GET /todolists or /todolists.json
   def index
@@ -8,6 +8,8 @@ class TodoListsController < ApplicationController
 
   # GET /todolists/1 or /todolists/1.json
   def show
+    @todolist = TodoList.find(params[:id])
+    @todo_items = @todolist.todo_items.order(created_at: :desc).page(params[:page])
   end
 
   # GET /todolists/new
@@ -55,6 +57,16 @@ class TodoListsController < ApplicationController
       format.html { redirect_to todo_lists_path, notice: "TodoList was successfully destroyed." }
       format.turbo_stream
     end
+  end
+
+  def complete_all
+    @todolist.complete_all
+    redirect_to @todolist
+  end
+
+  def clear_completed
+    @todolist.clear_completed
+    redirect_to @todolist
   end
 
   private
