@@ -16,13 +16,13 @@ RSpec.describe "/todolists", type: :request do
   # This should return the minimal set of attributes required to create a valid
   # TodoList. As you add validations to TodoList, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  let(:valid_attributes) do
+    { name: 'Todo List 1' }
+  end
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:invalid_attributes) do
+    { name: '' } # falla la validación de presencia
+  end
 
   describe "GET /index" do
     it "renders a successful response" do
@@ -59,25 +59,25 @@ RSpec.describe "/todolists", type: :request do
     context "with valid parameters" do
       it "creates a new TodoList" do
         expect {
-          post todo_lists_path, params: { todolist: valid_attributes }
+          post todo_lists_path, params: { todo_list: valid_attributes }
         }.to change(TodoList, :count).by(1)
       end
 
-      it "redirects to the created todolist" do
-        post todo_lists_path, params: { todolist: valid_attributes }
-        expect(response).to redirect_to(todo_list_path(TodoList.last))
+      it "redirects to the todolists page" do
+        post todo_lists_path, params: { todo_list: valid_attributes }
+        expect(response).to redirect_to(todo_lists_path)
       end
     end
 
     context "with invalid parameters" do
       it "does not create a new TodoList" do
         expect {
-          post todo_lists_path, params: { todolist: invalid_attributes }
+          post todo_lists_path, params: { todo_list: invalid_attributes }
         }.to change(TodoList, :count).by(0)
       end
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post todo_lists_path, params: { todolist: invalid_attributes }
+        post todo_lists_path, params: { todo_list: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -85,29 +85,29 @@ RSpec.describe "/todolists", type: :request do
 
   describe "PATCH /update" do
     context "with valid parameters" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+      let(:new_attributes) do
+        { name: "Todo List updated" }
+      end
 
       it "updates the requested todolist" do
         todolist = TodoList.create! valid_attributes
-        patch todo_list_path(todolist), params: { todolist: new_attributes }
+        patch todo_list_path(todolist), params: { todo_list: new_attributes }
         todolist.reload
         skip("Add assertions for updated state")
       end
 
       it "redirects to the todolist" do
         todolist = TodoList.create! valid_attributes
-        patch todo_list_path(todolist), params: { todolist: new_attributes }
+        patch todo_list_path(todolist), params: { todo_list: new_attributes }
         todolist.reload
-        expect(response).to redirect_to(todo_list_path(todolist))
+        expect(response).to redirect_to(todo_lists_path)
       end
     end
 
     context "with invalid parameters" do
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
         todolist = TodoList.create! valid_attributes
-        patch todo_list_path(todolist), params: { todolist: invalid_attributes }
+        patch todo_list_path(todolist), params: { todo_list: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
