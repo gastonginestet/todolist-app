@@ -79,9 +79,6 @@ To run the test suite:
 bin/rspec
 ```
 
-Integration test specs are located in a separate repo:  
-👉 [https://github.com/crunchloop/interview-tests](https://github.com/crunchloop/interview-tests)
-
 ---
 
 ## 📚 Documentation
@@ -95,15 +92,4 @@ Integration test specs are located in a separate repo:
 ---
 
 ## 📩 Contact
-
-- Santiago Doldán (<sdoldan@crunchloop.io>)
 - Gastón Ginestet (<gastonauginestet@gmail.com>)  
-
----
-
-## 🌀 About Crunchloop
-
-![crunchloop](https://s3.amazonaws.com/crunchloop.io/logo-blue.png)
-
-We strongly believe in giving back 🚀  
-Let's work together → [Get in touch](https://crunchloop.io/#contact)
