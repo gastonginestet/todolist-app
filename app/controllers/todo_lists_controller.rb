@@ -60,13 +60,26 @@ class TodoListsController < ApplicationController
   end
 
   def complete_all
-    @todolist.complete_all
-    redirect_to @todolist
+    @todo_list = TodoList.find(params[:id])
+    CompleteAllTodoItemsJob.perform_later(@todo_list)
+    respond_to do |format|
+      format.turbo_stream do
+        flash[:notice] = "Marcando como completado en background..."
+        render turbo_stream: turbo_stream.update("flash", partial: "shared/flash")
+      end
+      format.html { redirect_to todo_lists_path, notice: "Job encolado." }
+    end
   end
 
   def clear_completed
-    @todolist.clear_completed
-    redirect_to @todolist
+    ClearAllTodoItemsJob.perform_later(@todo_list.id)
+    respond_to do |format|
+      format.turbo_stream do
+        flash[:notice] = "Limpiando completados en segundo plano..."
+        render turbo_stream: turbo_stream.update("flash", partial: "shared/flash")
+      end
+      format.html { redirect_to todo_lists_path, notice: "Job encolado." }
+    end
   end
 
   private

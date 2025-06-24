@@ -1,0 +1,20 @@
+<!-- app/views/todo_items/_list.html.erb -->
+<%= turbo_frame_tag "todo_items" do %>
+  <div class="flex justify-between items-center mb-4">
+    <%= button_to t("todo_lists.todo_items.complete_all"), complete_all_todo_list_path(todo_list), method: :patch,
+      class: "text-sm text-green-600 hover:text-white hover:bg-green-600 border border-green-600 rounded px-3 py-1",
+      data: { turbo_frame: "todo_items", turbo_confirm: "Do you want to mark all items as completed?" } %>
+
+    <%= button_to t("todo_lists.todo_items.clear_completed"), clear_completed_todo_list_path(todo_list), method: :patch,
+      class: "text-sm text-red-600 hover:text-white hover:bg-red-600 border border-red-600 rounded px-3 py-1",
+      data: { turbo_frame: "todo_items" } %>
+  </div>
+
+  <% todo_list.todo_items.order(created_at: :desc).page(1).each do |item| %>
+    <%= render partial: "todo_items/item", locals: { todo_item: item, todo_list: todo_list } %>
+  <% end %>
+
+  <div class="mt-4">
+    <%= paginate todo_list.todo_items.page(1), theme: "tailwind" %>
+  </div>
+<% end %>

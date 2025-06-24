@@ -1,8 +1,11 @@
 # Base image
-FROM ruby:3.2
+FROM ruby:3.2-bullseye
 
 # Install dependencies
-RUN apt-get update -qq && apt-get install -y nodejs yarn build-essential libpq-dev watchman
+RUN rm -rf /var/lib/apt/lists/* && \
+    apt-get clean && \
+    apt-get update && \
+    apt-get install -y gnupg curl nodejs yarn build-essential libpq-dev watchman
 
 # Set working directory
 WORKDIR /app

@@ -21,6 +21,20 @@ services:
       - db
     stdin_open: true
     tty: true
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+  sidekiq:
+    build: .
+    command: bundle exec sidekiq
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis
+    environment:
+      - RAILS_ENV=development
 
 volumes:
   pgdata:
